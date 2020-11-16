@@ -3,11 +3,14 @@ import csv,os
 file = os.path.join('Resources','budget_data.csv')
 
 with open(file) as csv_file:
+    # Store the data into a variable
     csv_reader = csv.reader(csv_file)
+    # Skip the header as input
     next(csv_reader)
     row = next(csv_reader)
 
-# Initializing the variables
+# Initializing the variables by generating lists to loop through
+# the rows for each variable
     total_months = 0
     total_revenue = 0
     changes = []
@@ -24,6 +27,7 @@ with open(file) as csv_file:
     greatest_increase = int(row[1])
     greatest_increase_month = row[0]
 
+    #Loop through the data for total months and total profit
     for row in csv_reader:
         total_months = total_months + 1
         total_revenue = total_revenue + int(row[1])
@@ -58,3 +62,16 @@ with open(file) as csv_file:
     print("Average Change: $" + str(average_change))
     print("Greatest Increase in Profits: $" + greatest_increase_month, max(changes))
     print("Greatest Decrease in Profits: $" + greatest_decrease_month, min(changes))
+
+    # Output files to a text file
+    file = open("output.txt", "w")
+
+    # Write out how analysis will be displayed in text file 
+    file.write("Financial Analysis"+"\n")
+    file.write("--------------------------------"+"\n")
+    file.write("Total Months:" + str(total_months)+"\n")
+    file.write("Total Amount:" + str(total_revenue)+"\n")
+    file.write("Average Change: $" + str(average_change)+"\n")
+    file.write("Greatest Increase in Profits: $" + greatest_increase_month, max(changes)+"\n")
+    file.write("Greatest Decrease in Profits: $" + greatest_decrease_month, min(changes)+"\n")
+    file.close()
